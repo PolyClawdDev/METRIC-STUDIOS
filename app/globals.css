@@ -1,26 +1,178 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Color palette */
+  --color-background: #FAFAF8;
+  --color-foreground: #0A0A0A;
+  --color-accent: #1C3829;
+  --color-accent-hover: #243f30;
+  --color-accent-subtle: #EEF4F1;
+  --color-muted: #F5F5F3;
+  --color-muted-2: #EBEBEB;
+  --color-border: #E4E4E0;
+  --color-border-strong: #C8C8C2;
+  --color-dark: #0D0D0D;
+  --color-dark-card: #161616;
+  --color-dark-border: #242424;
+  --color-text-muted: #7A7A74;
+  --color-text-subtle: #B0B0A8;
+
+  /* Typography */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
+
+  /* Font sizes — fluid scale */
+  --text-hero: clamp(3.5rem, 8vw, 7.5rem);
+  --text-display: clamp(2.5rem, 5vw, 4.5rem);
+  --text-heading: clamp(1.75rem, 3vw, 2.75rem);
+
+  /* Timing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --duration-slow: 900ms;
+  --duration-base: 600ms;
+  --duration-fast: 300ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ── Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
+/* ── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 2px; }
+
+/* ── Selection ──────────────────────────────────── */
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* ── Custom utilities ───────────────────────────── */
+@utility container-site {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 6rem);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+}
+
+@utility tracking-luxury {
+  letter-spacing: 0.14em;
+}
+
+@utility section-gap {
+  padding-block: clamp(5rem, 10vw, 9rem);
+}
+
+/* ── Typography helpers ─────────────────────────── */
+.text-hero-size {
+  font-size: var(--text-hero);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.text-display-size {
+  font-size: var(--text-display);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.text-heading-size {
+  font-size: var(--text-heading);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* ── Label style ────────────────────────────────── */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.label::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+}
+
+/* Dark section label */
+.label-dark {
+  color: var(--color-text-subtle);
+}
+
+/* ── No cursor for interactive ──────────────────── */
+a, button, [role="button"] {
+  cursor: none;
+}
+
+@media (hover: none) {
+  a, button, [role="button"] { cursor: auto; }
+}
+
+/* ── Testimonial progress bar ───────────────────── */
+@keyframes testimony-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.testimony-progress {
+  transform-origin: left center;
+  animation: testimony-progress var(--progress-duration, 8s) linear forwards;
+}
+
+.testimony-progress.paused {
+  animation-play-state: paused;
+}
+
+/* ── Marquee ─────────────────────────────────────── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-left 28s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
 }
