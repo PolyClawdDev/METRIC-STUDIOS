@@ -118,7 +118,7 @@ export default function Hero() {
 
             {/* Primary headline */}
             <motion.div
-              className="overflow-hidden mb-2"
+              className="mb-2"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
@@ -139,7 +139,7 @@ export default function Hero() {
 
             {/* Secondary headline (italic accent) */}
             <motion.div
-              className="overflow-hidden mb-10 md:mb-14"
+              className="mb-10 md:mb-14"
               variants={{
                 hidden: {},
                 visible: {
