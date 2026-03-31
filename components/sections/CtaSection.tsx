@@ -69,7 +69,7 @@ export default function CtaSection() {
           >
             <MagneticButton
               as="a"
-              href="mailto:post@metricsstudios.no"
+              href="mailto:post@metricstudios.no"
               className="inline-flex items-center gap-3 px-8 py-4 text-sm font-medium tracking-[0.06em] uppercase bg-foreground text-background hover:bg-accent transition-colors duration-400"
             >
               Ta kontakt nå
@@ -86,11 +86,11 @@ export default function CtaSection() {
             transition={{ duration: 0.7, delay: 0.55 }}
           >
             <a
-              href="mailto:post@metricsstudios.no"
+              href="mailto:post@metricstudios.no"
               className="text-sm font-medium transition-colors duration-300 hover:text-accent"
               style={{ color: "var(--color-text-muted)" }}
             >
-              post@metricsstudios.no
+              post@metricstudios.no
             </a>
           </motion.div>
 

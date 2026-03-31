@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/_next/"],
       },
     ],
-    sitemap: "https://www.metricsstudios.no/sitemap.xml",
-    host: "https://www.metricsstudios.no",
+    sitemap: "https://www.metricstudios.no/sitemap.xml",
+    host: "https://www.metricstudios.no",
   };
 }

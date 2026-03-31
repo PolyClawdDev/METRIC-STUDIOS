@@ -130,10 +130,10 @@ export default function Footer() {
                 +47 465 84 867
               </a>
               <a
-                href="mailto:post@metricsstudios.no"
+                href="mailto:post@metricstudios.no"
                 className="text-sm block hover:text-white transition-colors duration-300"
                 style={{ color: "var(--color-text-subtle)" }}>
-                post@metricsstudios.no
+                post@metricstudios.no
               </a>
             </div>
 

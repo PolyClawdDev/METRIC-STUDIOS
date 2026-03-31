@@ -24,7 +24,7 @@ const cormorant = Cormorant({
   style: ["normal", "italic"],
 });
 
-const SITE_URL = "https://www.metricsstudios.no";
+const SITE_URL = "https://www.metricstudios.no";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -116,7 +116,7 @@ export default function RootLayout({
     logo: `${SITE_URL}/LOGO1.png`,
     image: `${SITE_URL}/LOGO1.png`,
     telephone: "+4746584867",
-    email: "post@metricsstudios.no",
+    email: "post@metricstudios.no",
     founder: {
       "@type": "Person",
       name: "Daniel Christiansson",
