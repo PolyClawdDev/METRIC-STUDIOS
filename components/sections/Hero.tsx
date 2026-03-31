@@ -15,8 +15,8 @@ import { useLang } from "@/contexts/LanguageContext";
 
 export default function Hero() {
   const { tr } = useLang();
-  const words1 = tr.hero.words1 as string[];
-  const words2 = tr.hero.words2 as string[];
+  const words1 = [...tr.hero.words1];
+  const words2 = [...tr.hero.words2];
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
