@@ -28,7 +28,10 @@ const SITE_URL = "https://www.metricstudios.no";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  icons: { icon: "/FAVICON.png", apple: "/FAVICON.png" },
+  icons: {
+    icon: [{ url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/FAVICON.png" }],
+  },
 
   title: {
     default: "Metrics Studios — Premium Nettsider, SEO & Digital Markedsføring Oslo",
