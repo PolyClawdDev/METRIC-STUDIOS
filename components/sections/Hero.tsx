@@ -24,6 +24,8 @@ export default function Hero() {
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+  const statsOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const statsY = useTransform(scrollYProgress, [0, 0.2], ["0%", "40%"]);
 
   return (
     <section
@@ -226,6 +228,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.25, ease: EASE_OUT }}
+        style={{ opacity: statsOpacity, y: statsY }}
       >
         <div
           className="grid grid-cols-2 md:grid-cols-4 border-t"
