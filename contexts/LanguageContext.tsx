@@ -4,16 +4,18 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { Lang } from "@/lib/translations";
 import { t } from "@/lib/translations";
 
+type Tr = typeof t.no | typeof t.en;
+
 interface LanguageContextType {
   lang: Lang;
   setLang: (lang: Lang) => void;
-  tr: typeof t.no;
+  tr: Tr;
 }
 
 const LanguageContext = createContext<LanguageContextType>({
   lang: "no",
   setLang: () => {},
-  tr: t.no,
+  tr: t.no as Tr,
 });
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
@@ -31,7 +33,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, tr: t[lang] }}>
+    <LanguageContext.Provider value={{ lang, setLang, tr: t[lang] as Tr }}>
       {children}
     </LanguageContext.Provider>
   );
