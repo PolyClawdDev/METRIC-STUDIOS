@@ -8,9 +8,9 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import Link from "next/link";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { EASE_OUT, staggerContainer, wordReveal } from "@/lib/animation";
+import { scrollTo } from "@/lib/scrollTo";
 
 const words1 = ["Nettsider", "som", "selger."];
 const words2 = ["Synlighet", "som", "vokser."];
@@ -189,8 +189,8 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 1.05, ease: EASE_OUT }}
             >
               <MagneticButton
-                as="a"
-                href="#kontakt"
+                as="button"
+                onClick={() => scrollTo("kontakt")}
                 className="inline-flex items-center gap-3 px-7 py-4 text-sm font-medium tracking-[0.06em] uppercase bg-foreground text-background transition-colors duration-300 hover:bg-accent"
               >
                 Start et prosjekt
@@ -206,8 +206,8 @@ export default function Hero() {
               </MagneticButton>
 
               <MagneticButton
-                as="a"
-                href="#prosjekter"
+                as="button"
+                onClick={() => scrollTo("prosjekter")}
                 className="inline-flex items-center gap-2 px-7 py-4 text-sm font-medium tracking-[0.06em] uppercase border transition-all duration-300"
                 style={
                   {

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { scrollTo } from "@/lib/scrollTo";
 
 function ScrollUpButton() {
   return (
@@ -30,10 +31,10 @@ function ScrollUpButton() {
 }
 
 const footerLinks = [
-  { label: "Tjenester", href: "#tjenester" },
-  { label: "Prosjekter", href: "#prosjekter" },
-  { label: "Prosessen", href: "#prosessen" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Tjenester", id: "tjenester" },
+  { label: "Prosjekter", id: "prosjekter" },
+  { label: "Prosessen", id: "prosessen" },
+  { label: "Kontakt", id: "kontakt" },
 ];
 
 const services = [
@@ -79,14 +80,14 @@ export default function Footer() {
             </p>
             <ul className="space-y-3">
               {footerLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
+                <li key={link.id}>
+                  <button
+                    onClick={() => scrollTo(link.id)}
                     className="text-sm transition-colors duration-300 hover:text-white"
                     style={{ color: "var(--color-text-subtle)" }}
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>

@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { scrollTo } from "@/lib/scrollTo";
 
 const navLinks = [
-  { label: "Tjenester", href: "#tjenester" },
-  { label: "Prosjekter", href: "#prosjekter" },
-  { label: "Prosessen", href: "#prosessen" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Tjenester", id: "tjenester" },
+  { label: "Prosjekter", id: "prosjekter" },
+  { label: "Prosessen", id: "prosessen" },
+  { label: "Kontakt", id: "kontakt" },
 ];
 
 export default function Navbar() {
@@ -57,24 +58,24 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
+              <button
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
                 className="text-xs font-medium tracking-[0.08em] uppercase text-text-muted hover:text-foreground transition-colors duration-300"
               >
                 {link.label}
-              </Link>
+              </button>
             ))}
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="#kontakt"
+            <button
+              onClick={() => scrollTo("kontakt")}
               className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium tracking-[0.08em] uppercase bg-foreground text-background hover:bg-accent transition-colors duration-300"
             >
               Ta kontakt
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -116,18 +117,17 @@ export default function Navbar() {
             <div className="container-site flex flex-col justify-center h-full gap-8 pb-20">
               {navLinks.map((link, i) => (
                 <motion.div
-                  key={link.href}
+                  key={link.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07 + 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <Link
-                    href={link.href}
+                  <button
+                    onClick={() => { scrollTo(link.id); setMenuOpen(false); }}
                     className="text-4xl font-display font-light text-foreground hover:text-accent transition-colors duration-300"
-                    onClick={() => setMenuOpen(false)}
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </motion.div>
               ))}
               <motion.div
@@ -135,13 +135,12 @@ export default function Navbar() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                <Link
-                  href="#kontakt"
+                <button
+                  onClick={() => { scrollTo("kontakt"); setMenuOpen(false); }}
                   className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium bg-foreground text-background hover:bg-accent transition-colors duration-300"
-                  onClick={() => setMenuOpen(false)}
                 >
                   Ta kontakt
-                </Link>
+                </button>
               </motion.div>
             </div>
           </motion.div>
