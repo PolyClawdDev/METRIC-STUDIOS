@@ -121,7 +121,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
             >
-              <div className="flex flex-wrap gap-x-[0.22em]">
+              <div className="flex flex-wrap gap-x-[0.22em] text-hero-size">
                 {words1.map((word, i) => (
                   <div key={i} className="overflow-hidden">
                     <motion.span
@@ -147,7 +147,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
             >
-              <div className="flex flex-wrap gap-x-[0.22em]">
+              <div className="flex flex-wrap gap-x-[0.22em] text-hero-size">
                 {words2.map((word, i) => (
                   <div key={i} className="overflow-hidden">
                     <motion.span
