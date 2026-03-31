@@ -125,7 +125,7 @@ export default function Hero() {
             >
               <div className="flex flex-wrap gap-x-[0.22em] text-hero-size">
                 {words1.map((word, i) => (
-                  <div key={i} className="overflow-hidden">
+                  <div key={i} className="overflow-hidden pb-[0.12em]">
                     <motion.span
                       className="block font-display font-light text-hero-size text-foreground"
                       variants={wordReveal}
@@ -151,7 +151,7 @@ export default function Hero() {
             >
               <div className="flex flex-wrap gap-x-[0.22em] text-hero-size">
                 {words2.map((word, i) => (
-                  <div key={i} className="overflow-hidden">
+                  <div key={i} className="overflow-hidden pb-[0.18em]">
                     <motion.span
                       className="block font-display font-light italic text-hero-size"
                       style={{ color: "var(--color-accent)" }}
