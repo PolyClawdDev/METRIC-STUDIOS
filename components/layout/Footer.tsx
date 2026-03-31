@@ -3,18 +3,20 @@
 import Link from "next/link";
 import Image from "next/image";
 import { scrollTo } from "@/lib/scrollTo";
+import { useLang } from "@/contexts/LanguageContext";
 
 function ScrollUpButton() {
+  const { tr } = useLang();
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      aria-label="Tilbake til toppen"
+      aria-label={tr.footer.backToTop}
       className="group flex items-center gap-2 px-4 py-2 border transition-all duration-300 hover:border-white/30 hover:bg-white/5"
       style={{ borderColor: "var(--color-dark-border)", cursor: "none" }}
     >
       <span className="text-[0.65rem] font-medium tracking-[0.12em] uppercase transition-colors duration-300 group-hover:text-white"
         style={{ color: "var(--color-text-subtle)" }}>
-        Tilbake til toppen
+        {tr.footer.backToTop}
       </span>
       <svg
         width="10" height="12" viewBox="0 0 10 12" fill="none"
@@ -30,23 +32,9 @@ function ScrollUpButton() {
   );
 }
 
-const footerLinks = [
-  { label: "Tjenester", id: "tjenester" },
-  { label: "Prosjekter", id: "prosjekter" },
-  { label: "Prosessen", id: "prosessen" },
-  { label: "Kontakt", id: "kontakt" },
-];
-
-const services = [
-  "Webdesign & Utvikling",
-  "Søkemotoroptimalisering",
-  "Google Business Profile",
-  "Digital Markedsføring",
-  "Leadgenerering",
-  "Annonsering",
-];
-
 export default function Footer() {
+  const { tr } = useLang();
+
   return (
     <footer style={{ backgroundColor: "var(--color-dark)", color: "white" }}>
       <div className="container-site py-20">
@@ -68,7 +56,7 @@ export default function Footer() {
             </Link>
             <p className="text-sm leading-relaxed max-w-xs"
               style={{ color: "var(--color-text-subtle)" }}>
-              Digitale løsninger for bedrifter som vil vokse. Premium nettsider, SEO og markedsføring.
+              {tr.footer.tagline}
             </p>
           </div>
 
@@ -76,10 +64,10 @@ export default function Footer() {
           <div className="md:col-span-2 md:col-start-6">
             <p className="text-[0.65rem] font-medium tracking-[0.14em] uppercase mb-5"
               style={{ color: "var(--color-text-subtle)" }}>
-              Navigasjon
+              {tr.footer.nav}
             </p>
             <ul className="space-y-3">
-              {footerLinks.map((link) => (
+              {tr.footer.navLinks.map((link) => (
                 <li key={link.id}>
                   <button
                     onClick={() => scrollTo(link.id)}
@@ -97,10 +85,10 @@ export default function Footer() {
           <div className="md:col-span-3">
             <p className="text-[0.65rem] font-medium tracking-[0.14em] uppercase mb-5"
               style={{ color: "var(--color-text-subtle)" }}>
-              Tjenester
+              {tr.footer.services}
             </p>
             <ul className="space-y-3">
-              {services.map((s) => (
+              {tr.footer.servicesList.map((s) => (
                 <li key={s}
                   className="text-sm"
                   style={{ color: "var(--color-text-subtle)" }}>
@@ -114,14 +102,14 @@ export default function Footer() {
           <div className="md:col-span-3">
             <p className="text-[0.65rem] font-medium tracking-[0.14em] uppercase mb-5"
               style={{ color: "var(--color-text-subtle)" }}>
-              Kontakt
+              {tr.footer.contact}
             </p>
 
             {/* Person */}
             <div className="mb-5 pb-5 border-b" style={{ borderColor: "var(--color-dark-border)" }}>
               <p className="text-sm font-medium text-white mb-0.5">Daniel Christiansson</p>
               <p className="text-xs mb-3" style={{ color: "var(--color-text-subtle)" }}>
-                Daglig Leder
+                {tr.footer.title}
               </p>
               <a
                 href="tel:+4746584867"
@@ -140,7 +128,7 @@ export default function Footer() {
             <div>
               <p className="text-[0.65rem] font-medium tracking-[0.14em] uppercase mb-2"
                 style={{ color: "var(--color-text-subtle)" }}>
-                Hovedkontor
+                {tr.footer.hq}
               </p>
               <p className="text-sm" style={{ color: "var(--color-text-subtle)" }}>
                 Prinsensgate 8<br />
@@ -154,11 +142,11 @@ export default function Footer() {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pt-8">
           <p className="text-xs" style={{ color: "var(--color-text-subtle)" }}>
-            © 2025 Metrics Studios. Alle rettigheter forbeholdt.
+            {tr.footer.copyright}
           </p>
           <div className="flex items-center gap-6">
             <p className="text-xs" style={{ color: "var(--color-dark-border)" }}>
-              Designet & utviklet med presisjon.
+              {tr.footer.crafted}
             </p>
             <ScrollUpButton />
           </div>

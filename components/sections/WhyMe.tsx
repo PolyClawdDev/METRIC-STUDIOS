@@ -2,41 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-
-const points = [
-  {
-    num: "01",
-    title: "Premium, ikke generisk",
-    desc: "Skreddersydde løsninger designet for din bedrift og dine kunder. Aldri maler, alltid intensjon.",
-  },
-  {
-    num: "02",
-    title: "SEO innebygd fra start",
-    desc: "Teknisk SEO er ikke en ettertanke — det er en del av hvert eneste valg vi tar i design og utvikling.",
-  },
-  {
-    num: "03",
-    title: "Direkte samarbeid",
-    desc: "Du jobber alltid direkte med teamet vårt. Ingen mellomledd, ingen misforståelser, ingen forsinkelser.",
-  },
-  {
-    num: "04",
-    title: "Konverteringsfokusert design",
-    desc: "Vakker design som faktisk leverer — ikke bare ser bra ut. Hvert element er satt der for en grunn.",
-  },
-  {
-    num: "05",
-    title: "Langsiktig strategi",
-    desc: "Vi bygger for fremtiden din, ikke bare for leveransen. En partner du kan stole på over tid.",
-  },
-  {
-    num: "06",
-    title: "Premium posisjonering",
-    desc: "Bedriften din skal se best ut i rommet — alltid. Fordi første inntrykk avgjør om de tar kontakt.",
-  },
-];
+import { useLang } from "@/contexts/LanguageContext";
 
 export default function WhyMe() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
@@ -56,7 +25,7 @@ export default function WhyMe() {
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6 }}
             >
-              Fordeler
+              {tr.whyme.label}
             </motion.div>
             <motion.h2
               className="text-heading-size font-display font-light text-foreground mb-6 text-balance"
@@ -64,7 +33,7 @@ export default function WhyMe() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              Hvorfor velge oss?
+              {tr.whyme.heading}
             </motion.h2>
             <motion.p
               className="text-sm leading-relaxed max-w-xs text-balance"
@@ -73,8 +42,7 @@ export default function WhyMe() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              Du trenger ikke det største byrået. Du trenger det rette teamet — ett som forstår
-              design, SEO og forretning på samme tid.
+              {tr.whyme.sub}
             </motion.p>
           </div>
 
@@ -82,7 +50,7 @@ export default function WhyMe() {
           <div className="lg:col-span-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px"
               style={{ backgroundColor: "var(--color-border)" }}>
-              {points.map((point, i) => (
+              {tr.whyme.points.map((point, i) => (
                 <motion.div
                   key={point.num}
                   className="group p-8 relative"
@@ -105,7 +73,6 @@ export default function WhyMe() {
                     {point.desc}
                   </p>
 
-                  {/* Hover accent dot */}
                   <motion.div
                     className="absolute top-7 right-7 w-1.5 h-1.5 rounded-full"
                     style={{ backgroundColor: "var(--color-accent)" }}

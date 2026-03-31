@@ -1,57 +1,18 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useLang } from "@/contexts/LanguageContext";
 
-const projects = [
-  {
-    id: 1,
-    client: "Bergmann Bygg",
-    category: "Webdesign & SEO",
-    year: "2024",
-    desc: "Kompleks transformasjon for et etablert byggefirma. Ny nettside + lokal SEO-strategi som tredoblede antall henvendelser innen 4 måneder.",
-    result: "+312% leads",
-    tags: ["Webdesign", "SEO", "Leadgenerering"],
-    accent: "#1C3829",
-    pattern: [
-      { w: "70%", h: 12, opacity: 1 },
-      { w: "45%", h: 8, opacity: 0.6 },
-      { w: "100%", h: 4, opacity: 0.3 },
-    ],
-  },
-  {
-    id: 2,
-    client: "Nordvik Eiendom",
-    category: "Webdesign & Leadgenerering",
-    year: "2024",
-    desc: "Premium nettside og lead-funnel for eiendomsmeglerbyrå. Konverteringsoptimalisert landing page med integrert bookingsystem.",
-    result: "+187% konvertering",
-    tags: ["Webdesign", "Leadgenerering", "UI/UX"],
-    accent: "#2A4A3E",
-    pattern: [
-      { w: "55%", h: 16, opacity: 1 },
-      { w: "80%", h: 6, opacity: 0.5 },
-      { w: "35%", h: 10, opacity: 0.8 },
-    ],
-  },
-  {
-    id: 3,
-    client: "Solberg Klinikk",
-    category: "Webdesign & Google Business",
-    year: "2025",
-    desc: "Komplett digital oppgradering for helseklinikk. Ny nettside, optimalisert Google Business Profile og lokal SEO ga 2× flere bookinger.",
-    result: "+210% bookinger",
-    tags: ["Webdesign", "Google Business", "Lokal SEO"],
-    accent: "#1F3530",
-    pattern: [
-      { w: "90%", h: 8, opacity: 0.7 },
-      { w: "60%", h: 14, opacity: 1 },
-      { w: "75%", h: 5, opacity: 0.4 },
-    ],
-  },
+const projectAccents = ["#1C3829", "#2A4A3E", "#1F3530"];
+const projectPatterns = [
+  [{ w: "70%", h: 12, opacity: 1 }, { w: "45%", h: 8, opacity: 0.6 }, { w: "100%", h: 4, opacity: 0.3 }],
+  [{ w: "55%", h: 16, opacity: 1 }, { w: "80%", h: 6, opacity: 0.5 }, { w: "35%", h: 10, opacity: 0.8 }],
+  [{ w: "90%", h: 8, opacity: 0.7 }, { w: "60%", h: 14, opacity: 1 }, { w: "75%", h: 5, opacity: 0.4 }],
 ];
 
 export default function Portfolio() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
   const [hoveredId, setHoveredId] = useState<number | null>(null);
@@ -73,7 +34,7 @@ export default function Portfolio() {
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6 }}
             >
-              Prosjekter
+              {tr.portfolio.label}
             </motion.div>
             <motion.h2
               className="text-display-size font-display font-light text-foreground text-balance"
@@ -81,7 +42,7 @@ export default function Portfolio() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              Utvalgte arbeider.
+              {tr.portfolio.heading}
             </motion.h2>
           </div>
           <motion.p
@@ -91,72 +52,68 @@ export default function Portfolio() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Reelle prosjekter. Reelle resultater.
+            {tr.portfolio.sub}
           </motion.p>
         </div>
 
         {/* Projects */}
         <div className="space-y-4">
-          {projects.map((project, i) => (
+          {tr.portfolio.projects.map((project, i) => (
             <motion.div
-              key={project.id}
+              key={project.client}
               className="group relative border overflow-hidden transition-colors duration-500"
               style={{
-                backgroundColor: hoveredId === project.id ? project.accent : "var(--color-background)",
+                backgroundColor: hoveredId === i ? projectAccents[i] : "var(--color-background)",
                 borderColor: "var(--color-border)",
               }}
               initial={{ opacity: 0, y: 32 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: i * 0.12 + 0.2, ease: [0.22, 1, 0.36, 1] }}
-              onHoverStart={() => setHoveredId(project.id)}
+              onHoverStart={() => setHoveredId(i)}
               onHoverEnd={() => setHoveredId(null)}
             >
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-8 md:p-10 items-center">
-                {/* Index */}
                 <div className="hidden md:block md:col-span-1">
                   <span
                     className="text-[0.65rem] font-medium tracking-[0.14em] uppercase transition-colors duration-500"
-                    style={{ color: hoveredId === project.id ? "rgba(255,255,255,0.4)" : "var(--color-text-subtle)" }}
+                    style={{ color: hoveredId === i ? "rgba(255,255,255,0.4)" : "var(--color-text-subtle)" }}
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
 
-                {/* Client & Category */}
                 <div className="md:col-span-3">
                   <h3
                     className="text-xl md:text-2xl font-display font-medium mb-1 transition-colors duration-500"
-                    style={{ color: hoveredId === project.id ? "white" : "var(--color-foreground)" }}
+                    style={{ color: hoveredId === i ? "white" : "var(--color-foreground)" }}
                   >
                     {project.client}
                   </h3>
                   <p
                     className="text-xs font-medium tracking-[0.08em] uppercase transition-colors duration-500"
-                    style={{ color: hoveredId === project.id ? "rgba(255,255,255,0.5)" : "var(--color-text-muted)" }}
+                    style={{ color: hoveredId === i ? "rgba(255,255,255,0.5)" : "var(--color-text-muted)" }}
                   >
                     {project.category}
                   </p>
                 </div>
 
-                {/* Description */}
                 <div className="md:col-span-4">
                   <p
                     className="text-sm leading-relaxed transition-colors duration-500"
-                    style={{ color: hoveredId === project.id ? "rgba(255,255,255,0.7)" : "var(--color-text-muted)" }}
+                    style={{ color: hoveredId === i ? "rgba(255,255,255,0.7)" : "var(--color-text-muted)" }}
                   >
                     {project.desc}
                   </p>
                 </div>
 
-                {/* Tags */}
                 <div className="md:col-span-2 hidden lg:flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
                       className="text-[0.6rem] font-medium tracking-[0.08em] uppercase px-2.5 py-1 transition-colors duration-500"
                       style={{
-                        backgroundColor: hoveredId === project.id ? "rgba(255,255,255,0.1)" : "var(--color-muted-2)",
-                        color: hoveredId === project.id ? "rgba(255,255,255,0.7)" : "var(--color-text-muted)",
+                        backgroundColor: hoveredId === i ? "rgba(255,255,255,0.1)" : "var(--color-muted-2)",
+                        color: hoveredId === i ? "rgba(255,255,255,0.7)" : "var(--color-text-muted)",
                       }}
                     >
                       {tag}
@@ -164,18 +121,17 @@ export default function Portfolio() {
                   ))}
                 </div>
 
-                {/* Result */}
                 <div className="md:col-span-2 flex items-center justify-end">
                   <div className="text-right">
                     <p
                       className="text-2xl font-display font-medium transition-colors duration-500"
-                      style={{ color: hoveredId === project.id ? "white" : "var(--color-accent)" }}
+                      style={{ color: hoveredId === i ? "white" : "var(--color-accent)" }}
                     >
                       {project.result}
                     </p>
                     <p
                       className="text-xs transition-colors duration-500"
-                      style={{ color: hoveredId === project.id ? "rgba(255,255,255,0.4)" : "var(--color-text-subtle)" }}
+                      style={{ color: hoveredId === i ? "rgba(255,255,255,0.4)" : "var(--color-text-subtle)" }}
                     >
                       {project.year}
                     </p>
@@ -183,16 +139,11 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              {/* Progress bar */}
-              <motion.div
-                className="h-px"
-                style={{ backgroundColor: "var(--color-border)" }}
-              />
+              <motion.div className="h-px" style={{ backgroundColor: "var(--color-border)" }} />
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom note */}
         <motion.p
           className="mt-10 text-xs text-center"
           style={{ color: "var(--color-text-subtle)" }}
@@ -200,7 +151,7 @@ export default function Portfolio() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.6 }}
         >
-          Alle tall er basert på reelle kundeprosjekter. Individuelle resultater varierer.
+          {tr.portfolio.note}
         </motion.p>
       </div>
     </section>

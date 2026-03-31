@@ -5,68 +5,9 @@ import { motion, useInView } from "framer-motion";
 import { Globe, Search, MapPin, BarChart3, Target, Zap, TrendingUp, BrainCircuit } from "lucide-react";
 import { EASE_OUT } from "@/lib/animation";
 import type { Variants } from "framer-motion";
+import { useLang } from "@/contexts/LanguageContext";
 
-const services = [
-  {
-    number: "01",
-    icon: Globe,
-    title: "Webdesign & Utvikling",
-    desc: "Skreddersydde nettsider som ikke bare ser premium ut — de konverterer besøkende til kunder. Lynrask, mobilvennlig og bygget for å imponere.",
-    tags: ["UX/UI Design", "Responsivt", "Hastighetoptimalisert"],
-  },
-  {
-    number: "02",
-    icon: Search,
-    title: "Søkemotoroptimalisering",
-    desc: "La kundene dine finne deg — ikke konkurrentene. Vi bygger SEO-fundamentet din synlighet trenger, teknisk og innholdsmessig.",
-    tags: ["Teknisk SEO", "Søkeordsanalyse", "On-Page"],
-  },
-  {
-    number: "03",
-    icon: MapPin,
-    title: "Google Business Profile",
-    desc: "En optimalisert Google-profil betyr flere lokale kunder, mer tillit og bedre synlighet der det teller mest — i lokale søk.",
-    tags: ["Lokal SEO", "Google Maps", "Anmeldelser"],
-  },
-  {
-    number: "04",
-    icon: BarChart3,
-    title: "Digital Markedsføring",
-    desc: "Strategisk innholds- og kanalmarkedsføring som bygger merkevaren din og driver kvalifisert trafikk til det som faktisk selger.",
-    tags: ["Strategi", "Innhold", "Analyse"],
-  },
-  {
-    number: "05",
-    icon: Target,
-    title: "Leadgenerering",
-    desc: "Vi designer konverteringsoptimaliserte systemer som gjør interesserte besøkende til betalende kunder — systematisk og skalerbart.",
-    tags: ["Konvertering", "Landingssider", "CTA-optimalisering"],
-  },
-  {
-    number: "06",
-    icon: Zap,
-    title: "Annonsering",
-    desc: "Google Ads og Meta-annonser som forsterker organisk vekst og gir umiddelbare, målbare resultater for budsjettbevisste bedrifter.",
-    tags: ["Google Ads", "Meta Ads", "ROI-fokus"],
-    badge: "Tillegg",
-  },
-  {
-    number: "07",
-    icon: TrendingUp,
-    title: "Performance Marketing",
-    desc: "Vi tar innhold og gjør det om til målbare annonser på sosiale medier som anskaffer kunder — uke for uke. Du ser nøyaktig hva du betaler for.",
-    tags: ["Meta Ads", "TikTok Ads", "Kundeanskaffelse"],
-    badge: "Nytt",
-  },
-  {
-    number: "08",
-    icon: BrainCircuit,
-    title: "AI Implementering",
-    desc: "Vi integrerer AI i bedriftens arbeidsflyt — fra automatisering og kundeservice til innholdsproduksjon. Spar tid, skaler raskere, jobb smartere.",
-    tags: ["AI-automatisering", "ChatGPT", "Arbeidsflyt"],
-    badge: "Nytt",
-  },
-];
+const icons = [Globe, Search, MapPin, BarChart3, Target, Zap, TrendingUp, BrainCircuit];
 
 const stagger: Variants = {
   hidden: {},
@@ -79,6 +20,7 @@ const cardVariant: Variants = {
 };
 
 export default function Services() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-15% 0px" });
 
@@ -99,7 +41,7 @@ export default function Services() {
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              Tjenester
+              {tr.services.label}
             </motion.div>
             <motion.h2
               className="text-display-size font-display font-light text-white text-balance"
@@ -107,7 +49,7 @@ export default function Services() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              Alt du trenger for en sterk digital tilstedeværelse.
+              {tr.services.heading}
             </motion.h2>
           </div>
           <div className="md:col-span-4 md:col-start-9 flex items-end">
@@ -118,8 +60,7 @@ export default function Services() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              Fra skreddersydde nettsider til SEO og digital markedsføring — vi leverer
-              helhetlige løsninger som driver faktiske resultater.
+              {tr.services.sub}
             </motion.p>
           </div>
         </div>
@@ -132,8 +73,9 @@ export default function Services() {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
         >
-          {services.map((service) => {
-            const Icon = service.icon;
+          {tr.services.items.map((service, idx) => {
+            const Icon = icons[idx];
+            const isNew = service.badge === tr.services.badgeNew || service.badge === "Nytt" || service.badge === "New";
             return (
               <motion.div
                 key={service.number}
@@ -153,7 +95,7 @@ export default function Services() {
                   {service.badge && (
                     <span
                       className="text-[0.6rem] font-medium tracking-[0.1em] uppercase px-2.5 py-1 border"
-                      style={service.badge === "Nytt" ? {
+                      style={isNew ? {
                         borderColor: "#4ade80",
                         color: "#4ade80",
                         backgroundColor: "rgba(74,222,128,0.08)",

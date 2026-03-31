@@ -6,6 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/ui/CustomCursor";
 import ChatWidget from "@/components/ui/ChatWidget";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const GA_ID = "G-SQJN83TFX2";
 
@@ -190,11 +191,13 @@ export default function RootLayout({
             opacity: 0.4,
           }}
         />
-        <CustomCursor />
-        <Navbar />
-        <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
-        <Footer />
-        <ChatWidget />
+        <LanguageProvider>
+          <CustomCursor />
+          <Navbar />
+          <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
+          <Footer />
+          <ChatWidget />
+        </LanguageProvider>
       </body>
     </html>
   );

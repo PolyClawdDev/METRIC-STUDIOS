@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useLang } from "@/contexts/LanguageContext";
 
 const SLIDE_DURATION = 8000;
 
@@ -81,6 +82,7 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
@@ -133,9 +135,9 @@ export default function Testimonials() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="label label-dark mb-4">Kunder</p>
+            <p className="label label-dark mb-4">{tr.testimonials.label}</p>
             <h2 className="text-display-size font-display font-light text-white">
-              Hva de sier.
+              {tr.testimonials.heading}
             </h2>
           </motion.div>
 

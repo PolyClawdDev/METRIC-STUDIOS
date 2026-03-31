@@ -11,18 +11,12 @@ import {
 import MagneticButton from "@/components/ui/MagneticButton";
 import { EASE_OUT, staggerContainer, wordReveal } from "@/lib/animation";
 import { scrollTo } from "@/lib/scrollTo";
-
-const words1 = ["Nettsider", "som", "selger."];
-const words2 = ["Synlighet", "som", "vokser."];
-
-const stats = [
-  { value: "15+", label: "Prosjekter levert" },
-  { value: "Top 3", label: "Google-rangeringer" },
-  { value: "3×", label: "Gjennomsnittlig leadøkning" },
-  { value: "98%", label: "Fornøyde kunder" },
-];
+import { useLang } from "@/contexts/LanguageContext";
 
 export default function Hero() {
+  const { tr } = useLang();
+  const words1 = tr.hero.words1 as string[];
+  const words2 = tr.hero.words2 as string[];
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -176,9 +170,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.9, delay: 0.85, ease: EASE_OUT }}
             >
-              Vi hjelper bedrifter med å se premium ut, rangere høyere på Google
-              og generere flere leads — gjennom moderne webdesign, SEO og
-              målrettet digital markedsføring.
+              {tr.hero.sub}
             </motion.p>
 
             {/* CTAs */}
@@ -193,7 +185,7 @@ export default function Hero() {
                 onClick={() => scrollTo("kontakt")}
                 className="inline-flex items-center gap-3 px-7 py-4 text-sm font-medium tracking-[0.06em] uppercase bg-foreground text-background transition-colors duration-300 hover:bg-accent"
               >
-                Start et prosjekt
+                {tr.hero.cta1}
                 <svg width="16" height="8" viewBox="0 0 16 8" fill="none">
                   <path
                     d="M0 4H14M11 1l3 3-3 3"
@@ -216,7 +208,7 @@ export default function Hero() {
                   } as React.CSSProperties
                 }
               >
-                Se arbeidet
+                {tr.hero.cta2}
               </MagneticButton>
             </motion.div>
           </div>
@@ -239,7 +231,7 @@ export default function Hero() {
           className="grid grid-cols-2 md:grid-cols-4 border-t"
           style={{ borderColor: "var(--color-border)" }}
         >
-          {stats.map((stat, i) => (
+          {tr.hero.stats.map((stat, i) => (
             <div
               key={i}
               className="pt-6 pb-2 pr-6"

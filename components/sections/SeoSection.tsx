@@ -3,41 +3,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { FileSearch, MapPin, FileText, Cpu, BarChart2, Megaphone } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
-const features = [
-  {
-    icon: FileSearch,
-    title: "SEO-fundamentet",
-    desc: "Tekniske meta-tags, schema markup, intern lenkestruktur og hastighetoptimalisering som Google belønner.",
-  },
-  {
-    icon: MapPin,
-    title: "Lokal synlighet",
-    desc: "Google Business Profile, lokal søkeoptimalisering og Google Maps-tilstedeværelse for mer lokalt salg.",
-  },
-  {
-    icon: FileText,
-    title: "Innholdsstrategi",
-    desc: "Søkeordsanalyse, optimaliserte tjenestetekster og blogginnhold som bygger autoritet over tid.",
-  },
-  {
-    icon: Cpu,
-    title: "Teknisk SEO",
-    desc: "Core Web Vitals, crawlability, XML-sitemap og strukturerte data som hever rangeringene dine.",
-  },
-  {
-    icon: BarChart2,
-    title: "Tracking & Analyse",
-    desc: "GA4, Google Search Console og konverteringssporing — så du alltid vet hva som fungerer.",
-  },
-  {
-    icon: Megaphone,
-    title: "Annonsering som supplement",
-    desc: "Google Ads og Meta-annonser der organisk SEO trenger et ekstra dytt for å nå kunder raskere.",
-  },
-];
+const icons = [FileSearch, MapPin, FileText, Cpu, BarChart2, Megaphone];
 
 export default function SeoSection() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
@@ -58,7 +29,7 @@ export default function SeoSection() {
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.6 }}
               >
-                Synlighet
+                {tr.seo.label}
               </motion.div>
               <motion.h2
                 className="text-heading-size font-display font-light text-foreground mb-6 text-balance"
@@ -66,9 +37,9 @@ export default function SeoSection() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               >
-                Mer enn{" "}
+                {tr.seo.heading}{" "}
                 <span className="font-display italic" style={{ color: "var(--color-accent)" }}>
-                  en nettside.
+                  {tr.seo.headingItalic}
                 </span>
               </motion.h2>
               <motion.p
@@ -78,12 +49,9 @@ export default function SeoSection() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               >
-                En nettside er bare starten. Det handler om å bli funnet, bli husket og bli
-                valgt — gang på gang. Vi bygger helhetlige digitale tilstedeværelser som
-                jobber for deg, ikke bare ser bra ut.
+                {tr.seo.body}
               </motion.p>
 
-              {/* Accent block */}
               <motion.div
                 className="p-6 border-l-2"
                 style={{
@@ -95,8 +63,7 @@ export default function SeoSection() {
                 transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
               >
                 <p className="text-sm leading-relaxed font-medium" style={{ color: "var(--color-accent)" }}>
-                  «87% av forbrukere starter et produktsøk på Google. Hvis du ikke er synlig
-                  der, eksisterer du ikke for dem.»
+                  {tr.seo.quote}
                 </p>
               </motion.div>
             </div>
@@ -106,8 +73,8 @@ export default function SeoSection() {
           <div className="lg:col-span-7">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px"
               style={{ backgroundColor: "var(--color-border)" }}>
-              {features.map((feature, i) => {
-                const Icon = feature.icon;
+              {tr.seo.features.map((feature, i) => {
+                const Icon = icons[i];
                 return (
                   <motion.div
                     key={feature.title}

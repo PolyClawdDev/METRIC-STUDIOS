@@ -3,34 +3,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
+import { useLang } from "@/contexts/LanguageContext";
 
-const metrics = [
-  { prefix: "", value: 3, suffix: "×", label: "Flere leads", sub: "Gjennomsnittlig økning i lead-volum etter ny nettside" },
-  { prefix: "Top ", value: 3, suffix: "", label: "Google-ranking", sub: "Lokal synlighet oppnådd innen 6 måneder" },
-  { prefix: "", value: 40, suffix: "%", label: "Lenger besøkstid", sub: "Økning i tid på nettside etter redesign" },
-  { prefix: "", value: 95, suffix: "%", label: "Fornøyde kunder", sub: "Kundetilfredshet etter prosjektlevering" },
-];
-
-const valueProps = [
-  {
-    title: "Bli funnet på Google",
-    desc: "Mer organisk trafikk. Lavere annonsekostnader. Kunder som allerede leter etter deg.",
-  },
-  {
-    title: "Se mer profesjonell ut",
-    desc: "Et premium digitalt inntrykk bygger tillit umiddelbart — før de har lest ett eneste ord.",
-  },
-  {
-    title: "Konverter flere besøkende",
-    desc: "Smarte strukturer, klare budskap og CTA-er som faktisk selger — ikke bare er pene.",
-  },
-  {
-    title: "Skil deg ut fra konkurrentene",
-    desc: "Et design og en tilstedeværelse dine konkurrenter rett og slett ikke kan matche.",
-  },
-];
+const metricValues = [3, 3, 40, 95];
 
 export default function Results() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
@@ -49,7 +27,7 @@ export default function Results() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6 }}
           >
-            Resultater
+            {tr.results.label}
           </motion.div>
           <motion.h2
             className="text-display-size font-display font-light text-white text-balance"
@@ -57,9 +35,9 @@ export default function Results() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
-            En sterk digital tilstedeværelse{" "}
+            {tr.results.heading}{" "}
             <span className="font-display italic" style={{ color: "var(--color-accent-subtle)" }}>
-              gjør alt enklere.
+              {tr.results.headingItalic}
             </span>
           </motion.h2>
         </div>
@@ -69,7 +47,7 @@ export default function Results() {
           className="grid grid-cols-2 md:grid-cols-4 gap-px mb-16 md:mb-20"
           style={{ backgroundColor: "var(--color-dark-border)" }}
         >
-          {metrics.map((m, i) => (
+          {tr.results.metrics.map((m, i) => (
             <motion.div
               key={m.label}
               className="p-8 md:p-10"
@@ -83,7 +61,7 @@ export default function Results() {
                 style={{ color: "var(--color-accent-subtle)" }}
               >
                 {m.prefix}
-                <AnimatedCounter value={m.value} suffix={m.suffix} />
+                <AnimatedCounter value={metricValues[i]} suffix={m.suffix} />
               </div>
               <p className="text-sm font-medium text-white mb-1.5">{m.label}</p>
               <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-subtle)" }}>
@@ -96,7 +74,7 @@ export default function Results() {
         {/* Value Props */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px"
           style={{ backgroundColor: "var(--color-dark-border)" }}>
-          {valueProps.map((vp, i) => (
+          {tr.results.valueProps.map((vp, i) => (
             <motion.div
               key={vp.title}
               className="group p-8 md:p-10 flex gap-6 transition-colors duration-500"

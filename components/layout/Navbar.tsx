@@ -5,17 +5,72 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { scrollTo } from "@/lib/scrollTo";
+import { useLang } from "@/contexts/LanguageContext";
 
-const navLinks = [
-  { label: "Tjenester", id: "tjenester" },
-  { label: "Prosjekter", id: "prosjekter" },
-  { label: "Prosessen", id: "prosessen" },
-  { label: "Kontakt", id: "kontakt" },
-];
+function LangSwitcher() {
+  const { lang, setLang } = useLang();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-1.5 px-3 py-1.5 text-[0.65rem] font-medium tracking-[0.1em] uppercase border transition-all duration-300 hover:border-foreground"
+        style={{ borderColor: "var(--color-border)", color: "var(--color-text-muted)" }}
+        aria-label="Change language"
+      >
+        <span>{lang === "no" ? "🇳🇴" : "🇬🇧"}</span>
+        <span>{lang.toUpperCase()}</span>
+        <svg
+          width="8" height="5" viewBox="0 0 8 5" fill="none"
+          className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        >
+          <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="absolute right-0 top-full mt-1 w-32 border shadow-sm overflow-hidden z-50"
+            style={{ backgroundColor: "var(--color-background)", borderColor: "var(--color-border)" }}
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2 }}
+          >
+            {(["no", "en"] as const).map((l) => (
+              <button
+                key={l}
+                onClick={() => { setLang(l); setOpen(false); }}
+                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-[0.65rem] font-medium tracking-[0.1em] uppercase transition-colors duration-200 hover:bg-muted text-left"
+                style={{
+                  color: lang === l ? "var(--color-foreground)" : "var(--color-text-muted)",
+                  backgroundColor: lang === l ? "var(--color-muted)" : "transparent",
+                }}
+              >
+                <span>{l === "no" ? "🇳🇴" : "🇬🇧"}</span>
+                <span>{l === "no" ? "Norsk" : "English"}</span>
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Navbar() {
+  const { tr } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: tr.nav.services, id: "tjenester" },
+    { label: tr.nav.projects, id: "prosjekter" },
+    { label: tr.nav.process, id: "prosessen" },
+    { label: tr.nav.contact, id: "kontakt" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -68,13 +123,14 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop right side */}
+          <div className="hidden md:flex items-center gap-3">
+            <LangSwitcher />
             <button
               onClick={() => scrollTo("kontakt")}
               className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-medium tracking-[0.08em] uppercase bg-foreground text-background hover:bg-accent transition-colors duration-300"
             >
-              Ta kontakt
+              {tr.nav.cta}
             </button>
           </div>
 
@@ -134,13 +190,15 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
+                className="flex items-center gap-4"
               >
                 <button
                   onClick={() => { scrollTo("kontakt"); setMenuOpen(false); }}
                   className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium bg-foreground text-background hover:bg-accent transition-colors duration-300"
                 >
-                  Ta kontakt
+                  {tr.nav.cta}
                 </button>
+                <LangSwitcher />
               </motion.div>
             </div>
           </motion.div>

@@ -2,41 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-
-const steps = [
-  {
-    num: "01",
-    title: "Oppdagelse",
-    desc: "Vi setter oss inn i din bedrift, dine kunder og dine mål. Et strategisk fundament for alt som følger.",
-    detail: "Markedsanalyse · Konkurransekartlegging · Måldefinisjoner",
-  },
-  {
-    num: "02",
-    title: "Design",
-    desc: "Skreddersydd visuell identitet og brukeropplevelse som reflekterer merkevarens premiumfølelse.",
-    detail: "Wireframes · UI/UX Design · Prototypevalidering",
-  },
-  {
-    num: "03",
-    title: "Utvikling",
-    desc: "Teknisk presis, lynrask og fremtidssikker kode — bygget for å skalere med bedriften din.",
-    detail: "Next.js · Responsivt · Core Web Vitals",
-  },
-  {
-    num: "04",
-    title: "Lansering",
-    desc: "Kvalitetssikret, SEO-optimalisert og klar for søkemotorene fra første sekund.",
-    detail: "QA-testing · SEO-setup · Analytics · Go live",
-  },
-  {
-    num: "05",
-    title: "Optimalisering",
-    desc: "Løpende SEO, analyser og forbedringer som driver langsiktig, organisk vekst for bedriften din.",
-    detail: "SEO-rapporter · A/B-testing · Kontinuerlig forbedring",
-  },
-];
+import { useLang } from "@/contexts/LanguageContext";
 
 export default function Process() {
+  const { tr } = useLang();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
 
@@ -57,7 +26,7 @@ export default function Process() {
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6 }}
             >
-              Prosessen
+              {tr.process.label}
             </motion.div>
             <motion.h2
               className="text-display-size font-display font-light text-foreground text-balance"
@@ -65,9 +34,9 @@ export default function Process() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
-              Enkelt. Strømlinjeformet.{" "}
+              {tr.process.heading}{" "}
               <span className="font-display italic" style={{ color: "var(--color-text-muted)" }}>
-                Uten overraskelser.
+                {tr.process.headingItalic}
               </span>
             </motion.h2>
           </div>
@@ -75,7 +44,6 @@ export default function Process() {
 
         {/* Steps */}
         <div className="relative">
-          {/* Vertical line */}
           <motion.div
             className="absolute left-[calc(2rem+0.5px)] top-0 bottom-0 w-px origin-top hidden md:block"
             style={{ backgroundColor: "var(--color-border)" }}
@@ -85,7 +53,7 @@ export default function Process() {
           />
 
           <div className="space-y-0">
-            {steps.map((step, i) => (
+            {tr.process.steps.map((step, i) => (
               <motion.div
                 key={step.num}
                 className="group grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-10 md:py-12 border-b relative"
@@ -94,7 +62,6 @@ export default function Process() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: i * 0.12 + 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
-                {/* Number column with dot */}
                 <div className="md:col-span-1 flex items-start md:justify-center pt-1">
                   <div className="relative">
                     <motion.div
@@ -111,7 +78,6 @@ export default function Process() {
                   </div>
                 </div>
 
-                {/* Step number */}
                 <div className="hidden md:flex md:col-span-1 items-start pt-0">
                   <span
                     className="text-[0.65rem] font-medium tracking-[0.14em] uppercase mt-0.5"
@@ -121,7 +87,6 @@ export default function Process() {
                   </span>
                 </div>
 
-                {/* Content */}
                 <div className="md:col-span-4">
                   <h3 className="text-xl md:text-2xl font-display font-medium text-foreground mb-3 group-hover:text-accent transition-colors duration-300">
                     {step.title}
@@ -140,7 +105,6 @@ export default function Process() {
                   </p>
                 </div>
 
-                {/* Hover accent line */}
                 <motion.div
                   className="absolute bottom-0 left-0 h-px"
                   style={{ backgroundColor: "var(--color-accent)" }}
