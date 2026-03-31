@@ -75,7 +75,8 @@ export default function Services() {
         >
           {tr.services.items.map((service, idx) => {
             const Icon = icons[idx];
-            const isNew = service.badge === tr.services.badgeNew || service.badge === "Nytt" || service.badge === "New";
+            const badge = (service as { badge?: string }).badge;
+            const isNew = badge === tr.services.badgeNew || badge === "Nytt" || badge === "New";
             return (
               <motion.div
                 key={service.number}
@@ -92,7 +93,7 @@ export default function Services() {
                   >
                     {service.number}
                   </span>
-                  {service.badge && (
+                  {badge && (
                     <span
                       className="text-[0.6rem] font-medium tracking-[0.1em] uppercase px-2.5 py-1 border"
                       style={isNew ? {
@@ -105,7 +106,7 @@ export default function Services() {
                         backgroundColor: "rgba(28,56,41,0.15)",
                       }}
                     >
-                      {service.badge}
+                      {badge}
                     </span>
                   )}
                 </div>
