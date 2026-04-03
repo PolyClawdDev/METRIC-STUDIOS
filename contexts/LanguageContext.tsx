@@ -1,8 +1,15 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useLayoutEffect,
+  useState,
+  useCallback,
+} from "react";
 import type { Lang } from "@/lib/translations";
 import { t } from "@/lib/translations";
+import { getCookie, setCookie } from "@/lib/cookies";
 
 type Tr = typeof t.no | typeof t.en;
 
@@ -18,19 +25,38 @@ const LanguageContext = createContext<LanguageContextType>({
   tr: t.no as Tr,
 });
 
+function applyDocumentLang(lang: Lang) {
+  document.documentElement.lang = lang === "en" ? "en" : "no";
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>("no");
 
-  useEffect(() => {
-    const saved = localStorage.getItem("ms-lang") as Lang | null;
-    if (saved === "en" || saved === "no") setLangState(saved);
+  useLayoutEffect(() => {
+    let resolved: Lang = "no";
+
+    const stored = localStorage.getItem("ms-lang") as Lang | null;
+    if (stored === "en" || stored === "no") {
+      resolved = stored;
+    } else {
+      const fromCookie = getCookie("ms-lang");
+      if (fromCookie === "en" || fromCookie === "no") {
+        resolved = fromCookie;
+        localStorage.setItem("ms-lang", fromCookie);
+      }
+    }
+
+    setLangState(resolved);
+    applyDocumentLang(resolved);
   }, []);
 
-  function setLang(newLang: Lang) {
+  const setLang = useCallback((newLang: Lang) => {
     setLangState(newLang);
     localStorage.setItem("ms-lang", newLang);
-    document.documentElement.lang = newLang === "en" ? "en" : "no";
-  }
+    applyDocumentLang(newLang);
+    setCookie("ms-lang", newLang);
+    setCookie("ms-lang-locked", "1");
+  }, []);
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, tr: t[lang] as Tr }}>
