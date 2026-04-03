@@ -97,7 +97,8 @@ body {
 /* ── Typography helpers ─────────────────────────── */
 .text-hero-size {
   font-size: var(--text-hero);
-  line-height: 1.0;
+  /* >1.0 so descenders (g, j, y) aren’t clipped with overflow-hidden + display fonts */
+  line-height: 1.14;
   letter-spacing: -0.03em;
 }
 

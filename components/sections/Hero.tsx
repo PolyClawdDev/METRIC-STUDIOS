@@ -122,7 +122,7 @@ export default function Hero() {
               animate="visible"
             >
               <h1 className="m-0 font-normal">
-                <span className="block overflow-hidden">
+                <span className="block overflow-hidden pb-[0.12em]">
                   <motion.span
                     className="block font-display font-light text-hero-size text-foreground tracking-tight text-balance"
                     variants={wordReveal}
@@ -130,7 +130,7 @@ export default function Hero() {
                     {tr.hero.titleLine1}
                   </motion.span>
                 </span>
-                <span className="block overflow-hidden mt-1 md:mt-2">
+                <span className="block overflow-hidden mt-1 md:mt-2 pb-[0.2em]">
                   <motion.span
                     className="block font-display font-light italic text-hero-size tracking-tight text-balance"
                     style={{ color: "var(--color-accent)" }}
