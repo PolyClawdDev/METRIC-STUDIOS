@@ -16,11 +16,7 @@ export function middleware(request: NextRequest) {
     return res;
   }
 
-  const existing = request.cookies.get("ms-lang")?.value;
-  if (existing === "no" || existing === "en") {
-    return res;
-  }
-
+  // No lock: always derive language from current request country so VPN/travel updates stick.
   const country = request.headers.get("x-vercel-ip-country") ?? "";
   let lang: "no" | "en";
   if (!country) {

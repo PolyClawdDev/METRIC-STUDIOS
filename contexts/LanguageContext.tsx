@@ -34,15 +34,25 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useLayoutEffect(() => {
     let resolved: Lang = "no";
+    const locked = getCookie("ms-lang-locked") === "1";
 
-    const stored = localStorage.getItem("ms-lang") as Lang | null;
-    if (stored === "en" || stored === "no") {
-      resolved = stored;
+    if (locked) {
+      const stored = localStorage.getItem("ms-lang") as Lang | null;
+      if (stored === "en" || stored === "no") {
+        resolved = stored;
+      } else {
+        const fromCookie = getCookie("ms-lang");
+        if (fromCookie === "en" || fromCookie === "no") resolved = fromCookie;
+      }
     } else {
+      // Geo-driven: cookie (refreshed every request in middleware) wins over stale localStorage.
       const fromCookie = getCookie("ms-lang");
       if (fromCookie === "en" || fromCookie === "no") {
         resolved = fromCookie;
         localStorage.setItem("ms-lang", fromCookie);
+      } else {
+        const stored = localStorage.getItem("ms-lang") as Lang | null;
+        if (stored === "en" || stored === "no") resolved = stored;
       }
     }
 
