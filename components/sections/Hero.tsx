@@ -15,8 +15,6 @@ import { useLang } from "@/contexts/LanguageContext";
 
 export default function Hero() {
   const { tr } = useLang();
-  const words1 = [...tr.hero.words1];
-  const words2 = [...tr.hero.words2];
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -116,61 +114,41 @@ export default function Hero() {
               Metrics Studios
             </motion.div>
 
-            {/* Primary headline */}
+            {/* Headline */}
             <motion.div
-              className="mb-2"
+              className="mb-10 md:mb-12"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
             >
-              <div className="flex flex-wrap gap-x-[0.22em] text-hero-size">
-                {words1.map((word, i) => (
-                  <div key={i}>
-                    <motion.span
-                      className="block font-display font-light text-hero-size text-foreground"
-                      variants={wordReveal}
-                    >
-                      {word}
-                    </motion.span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Secondary headline (italic accent) */}
-            <motion.div
-              className="mb-10 md:mb-14"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: { staggerChildren: 0.07, delayChildren: 0.48 },
-                },
-              }}
-              initial="hidden"
-              animate="visible"
-            >
-              <div className="flex flex-wrap gap-x-[0.22em] text-hero-size">
-                {words2.map((word, i) => (
-                  <div key={i}>
-                    <motion.span
-                      className="block font-display font-light italic text-hero-size"
-                      style={{ color: "var(--color-accent)" }}
-                      variants={wordReveal}
-                    >
-                      {word}
-                    </motion.span>
-                  </div>
-                ))}
-              </div>
+              <h1 className="m-0 font-normal">
+                <span className="block overflow-hidden">
+                  <motion.span
+                    className="block font-display font-light text-hero-size text-foreground tracking-tight text-balance"
+                    variants={wordReveal}
+                  >
+                    {tr.hero.titleLine1}
+                  </motion.span>
+                </span>
+                <span className="block overflow-hidden mt-1 md:mt-2">
+                  <motion.span
+                    className="block font-display font-light italic text-hero-size tracking-tight text-balance"
+                    style={{ color: "var(--color-accent)" }}
+                    variants={wordReveal}
+                  >
+                    {tr.hero.titleLine2}
+                  </motion.span>
+                </span>
+              </h1>
             </motion.div>
 
             {/* Subheadline */}
             <motion.p
-              className="text-base md:text-lg font-light leading-relaxed max-w-xl mb-10 md:mb-14 text-balance"
+              className="text-base md:text-lg font-light leading-relaxed max-w-2xl mb-10 md:mb-14 text-balance"
               style={{ color: "var(--color-text-muted)" }}
               initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.9, delay: 0.85, ease: EASE_OUT }}
+              transition={{ duration: 0.9, delay: 0.55, ease: EASE_OUT }}
             >
               {tr.hero.sub}
             </motion.p>

@@ -10,9 +10,9 @@ export const t = {
       cta: "Ta kontakt",
     },
     hero: {
-      words1: ["Nettsider", "som", "selger."],
-      words2: ["Synlighet", "som", "vokser."],
-      sub: "Vi hjelper bedrifter med å se premium ut, rangere høyere på Google og generere flere leads — gjennom moderne webdesign, SEO og målrettet digital markedsføring.",
+      titleLine1: "Fra usynlig",
+      titleLine2: "til uunngåelig",
+      sub: "Vi hjelper bedrifter med å eie sin online tilstedeværelse: tydelig posisjonering, høyere rangering og flere leads — med moderne web, SEO og digital markedsføring som faktisk følger opp.",
       cta1: "Start et prosjekt",
       cta2: "Se arbeidet",
       stats: [
@@ -218,9 +218,9 @@ export const t = {
       cta: "Get in touch",
     },
     hero: {
-      words1: ["Websites", "that", "sell."],
-      words2: ["Visibility", "that", "grows."],
-      sub: "We help businesses look premium, rank higher on Google and generate more leads — through modern web design, SEO and targeted digital marketing.",
+      titleLine1: "From invisible",
+      titleLine2: "to unavoidable",
+      sub: "We help businesses own their online presence: clear positioning, higher rankings and more leads — with modern web, SEO and digital marketing that actually follows through.",
       cta1: "Start a project",
       cta2: "See our work",
       stats: [
